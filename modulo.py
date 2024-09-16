@@ -76,8 +76,6 @@ class ContaCorrente(Conta):
             print("Saldo insuficiente. Saque não permitido.")
             return None
 
-
-
     # def fazer_saque(self, valor):
     #     self.__saldo -= valor
     #     return self.__saldo
