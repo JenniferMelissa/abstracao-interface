@@ -1,3 +1,4 @@
+import os
 from modulo import * 
 
 if __name__ == '__main__':
@@ -7,44 +8,49 @@ if __name__ == '__main__':
     cc.nome = input('Informe o nome do titular: ')
     cc.cpf = input('Informe o CPF do titular: ')
 
-    #saida de dados
-    print(f' Nome: {cc.nome}.')
-    print(f' CPF: {cc.cpf}.')
-    print(f' Agência: {cc.agencia}.')
-    print(f' Conta: {cc.conta}.')
-    print(f' Saldo: {cc.saldo}.')
-
-    print('\n')
-
     try:
         while True:
-            print('SAQUE E DEPOSITO')
-            print('1 - Saque.')
-            print('2 - Deposito.')
-            print('3 - Sair do programa.')
+                #saida de dados
+            print(f' Nome: {cc.nome}.')
+            print(f' CPF: {cc.cpf}.')
+            print(f' Agência: {cc.agencia}.')
+            print(f' Conta: {cc.conta}.')
+            print(f' Saldo: R$ {cc.saldo:,.2f}.\n')
+
+            print('1- Consultar saldo.')
+            print('2 - Fazer deposito.')
+            print('3 - Fazer saque.')
+            print('4 - Sair do programa.')
 
             opcao = int(input('Informe a opção desejada: '))
 
+            os.system('cls')
+
             match opcao:
                 case 1:
-                    valor_saque = float(input('Informe valor a ser sacado: '))
-                    saque = cc.fazer_saque(valor_saque)
-                    if saque is not None:
-                        print(f'Valor sacado: {saque}.')
-                        continue
-                    else:
-                        print('Não é possível fazer o saque. Escolha outra opção')
-                        continue
-                        
+                    print('Consultar saldo\n')
+                    print(f'Saldo disponível: R$ {cc.consultar_saldo():,.2f}.')
+                    continue
 
                 case 2: 
-                    valor = float(input('Informe valor a ser depositado: '))
-                    deposito = cc.fazer_deposito(valor)
-                    print(f'Novo Saldo: {deposito}.')
+                    valor = float(input('Informe valor do deposito: R$ ').replace(',','.'))
+                    if valor > 0:
+                        cc.saldo = cc.fazer_deposito(valor)
+                        print('Deposito efetuado com sucesso.')
+                    else:
+                        print('Valor inválido!')
                     continue
                 
                 case 3:
-                    print('Programa encerro.')
+                    valor_saque = float(input('Informe valor de saque: R$ '))
+                    if valor_saque <= cc.saldo:
+                        cc.saldo = cc.fazer_saque(valor)
+                        print(f'Saque efetuado com sucesso.')
+                    else:
+                        print('Não foi possível efetuar o saque.')
+                        continue
+                case 4:
+                    print('Programa encerrado.')
                     break
                 case _:
                     print('Opção não encontrada.')

@@ -68,14 +68,7 @@ class ContaCorrente(Conta):
         self.__saldo += valor
         return self.__saldo
 
-    def fazer_saque(self, valor):
-        if valor <= self.__saldo:
-            self.__saldo -= valor
-            return self.__saldo
-        else:
-            print("Saldo insuficiente. Saque não permitido.")
-            return None
 
-    # def fazer_saque(self, valor):
-    #     self.__saldo -= valor
-    #     return self.__saldo
+    def fazer_saque(self, valor):
+        self.__saldo -= valor
+        return self.__saldo
